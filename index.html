@@ -4,35 +4,135 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <link href='https://fonts.googleapis.com/css?family=Caveat' rel='stylesheet'>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/c94d4762fb.js" crossorigin="anonymous"></script>
-    <title>Hello, world!</title>
+
+    <script>
+      var TxtRotate = function(el, toRotate, period) {
+      this.toRotate = toRotate;
+      this.el = el;
+      this.loopNum = 0;
+      this.period = parseInt(period, 10) || 2000;
+      this.txt = '';
+      this.tick();
+      this.isDeleting = false;
+    };
+    
+    TxtRotate.prototype.tick = function() {
+      var i = this.loopNum % this.toRotate.length;
+      var fullTxt = this.toRotate[i];
+    
+      if (this.isDeleting) {
+        this.txt = fullTxt.substring(0, this.txt.length - 1);
+      } else {
+        this.txt = fullTxt.substring(0, this.txt.length + 1);
+      }
+    
+      this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
+    
+      var that = this;
+      var delta = 300 - Math.random() * 100;
+    
+      if (this.isDeleting) { delta /= 2; }
+    
+      if (!this.isDeleting && this.txt === fullTxt) {
+        delta = this.period;
+        this.isDeleting = true;
+      } else if (this.isDeleting && this.txt === '') {
+        this.isDeleting = false;
+        this.loopNum++;
+        delta = 500;
+      }
+    
+      setTimeout(function() {
+        that.tick();
+      }, delta);
+    };
+    
+    window.onload = function() {
+      var elements = document.getElementsByClassName('txt-rotate');
+      for (var i=0; i<elements.length; i++) {
+        var toRotate = elements[i].getAttribute('data-rotate');
+        var period = elements[i].getAttribute('data-period');
+        if (toRotate) {
+          new TxtRotate(elements[i], JSON.parse(toRotate), period);
+        }
+      }
+      // INJECT CSS
+      var css = document.createElement("style");
+      css.type = "text/css";
+      css.innerHTML = ".txt-rotate > .wrap { border-right: 0.08em solid #000 }";
+      document.body.appendChild(css);
+    };
+    </script>
+
+    <title>Purna-dev||UI/UX||Developer::Designer</title>
   </head>
   <body>
-    <h1 style="text-align: center;">Portfolio</h1>
-    <hr style="width: 400px;">
-<div class="container">
-  <center>
-    <div class="card shadow-lg p-3 mb-5 bg-white rounded" style="width: 22rem;text-align: center;">
-      <img src="img/purna.jpg" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Purna Chandra Saren</h5>
-        <p class="card-text"> I am IT student, who design and develop web apps for your company.</p>
-      </div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">Follow me : <i class="fab fa-facebook-square" style="font-size: 20px;"></i>&nbsp;&nbsp;<i class="fab fa-instagram" style="font-size: 20px;"></i></li>
-       
-      </ul>
-      <div class="card-body">
-        <a href="http://theanalog.in/" class="card-link">theanalog.in</a>
+    <div style="background: linear-gradient(#333399 50%,#fff 50%);">
+    <!--<h1 style="text-align: center;color: #fff;font-family: Caveat;">webappdev.ui</h1>-->
+    <div style="text-align: center;">
+    <img src="img/dev.png" class="img-fluid" style="width: 330px;height: 99px;">
+   
+  </div>
+    <!--<hr style="width: 50%;color: #fff;background-color: #fff;">-->
+
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8">
+          <center>
+            <div class="card shadow-lg p-3 mb-5 bg-white rounded" style="width: 22rem;text-align: center;">
+              <img src="img/purna.jpg" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">Purna Chandra Saren</h5>
+                 
+                <span style="color: #333399;"
+     class="txt-rotate"
+     data-period="2000"
+     data-rotate='[ "UI/UX Designer.", "Web Developer.", "Noob programmer 😋.", "Engineer!" ]'></span>
+
+                <p class="card-text" style="color: #2c3e50;"> I am IT student, design and develop web apps.Who focuses on writing clean,
+                  elegant and efficient code.</p>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item"> Follow me : <a href="https://www.facebook.com/profile.php?id=100011882376336"><i class="fab fa-facebook-square" style="font-size: 22px;color: #333399;"></i></a>&nbsp;&nbsp;<a href="https://www.instagram.com/purna_chandra_8936/"><i class="fab fa-instagram" style="font-size: 22px;color: #ff00cc;"></i></a></li>
+               
+              </ul>
+              <div class="card-body">
+                <a href="http://theanalog.in/" class="card-link">theanalog.in</a>
+              </div>
+            </div>
+          </center>
+        </div>
+        <div class="col-sm-4">
+          <div class="card bg-transparent text-black" style="color: #fff;">
+            <img src="img/ter.png" class="card-img" alt="terminal">
+            <div class="card-img-overlay">
+              <br>
+              <h5 class="card-title">Projects : </h5>
+              <p>1.<a href="http://flowers24.in/" style="text-decoration: none;font-style: italic;color: aliceblue;">flowers24.in</a></p>
+              <p>2.<a href="http://pcare.in/" style="text-decoration: none;font-style: italic;color: aliceblue;">pcare.in</a></p>
+              <small style="color: aliceblue;">and many more...</small>
+              
+              <!--<h5 class="card-title">Card title</h5>
+                
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <p class="card-text">Last updated 3 mins ago</p>-->
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </center>
+
+
+<div class="container">
+  <h6 style="text-align: center;">Made with ❤ in India</h6>
+  <hr style="width: 50%;">
   </div>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+</div>
+    
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
